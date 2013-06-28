@@ -1,0 +1,4 @@
+language      : ruby
+rvm           : jruby-19mode
+before_script : gem install buildr
+script        : buildr
