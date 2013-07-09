@@ -7,7 +7,7 @@ JPARSEC     = 'jparsec:jparsec:jar:2.0.1'
 GUAVA       = 'com.google.guava:guava:jar:13.0.1'
 COMMONS_CLI = 'commons-cli:commons-cli:jar:1.2'
 
-# project definition
+# LambdaCalc project
 define 'lambdacalc' do
   project.version = '1.1.0'
 
@@ -19,12 +19,30 @@ define 'lambdacalc' do
   
   package(:jar).with \
     :manifest => manifest.merge('Main-Class' => 'lambdacalc.STL')
-    
-  task :lambdagen do
-    system "ghc --make #{_(:src,:test:,:hs,'LambdaGen.hs')}"
-  end
-  
-  task :lamreduce do
-    
-  end
+end
+
+# LambdaRed executable (requires MosML)
+LambdaRedMl = project('lambdacalc')._(:src,:test,:ml,'LambdaRed.sml')
+LambdaRed   = project('lambdacalc')._(:target,'LambdaRed.exe')
+
+task :lambdared => LambdaRed
+file LambdaRed => LambdaRedMl do
+  old = Dir.getwd
+  Dir.chdir(File.dirname(LambdaRedMl))
+  system "make"
+  mv LambdaRedMl.ext('.exe'), LambdaRed
+  system "make clean"
+  Dir.chdir(old)
+end
+
+# LambdaGen executable (requires GHC)
+LambdaGenHs = project('lambdacalc')._(:src,:test,:hs,'LambdaGen.hs')
+LambdaGen   = project('lambdacalc')._(:target,'LambdaGen.exe')
+
+task :lambdagen => LambdaGen
+file LambdaGen => LambdaGenHs do
+  system "ghc --make #{LambdaGenHs}"
+  mv LambdaGenHs.ext('.exe'), LambdaGen
+  rm LambdaGenHs.ext('.hi')
+  rm LambdaGenHs.ext('.o')
 end

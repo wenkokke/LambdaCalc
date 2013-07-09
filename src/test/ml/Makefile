@@ -13,10 +13,10 @@ CPP=/lib/cpp -P -traditional -Dunix -Umsdos
 COMPFLAGS=-liberal
 all: parts lamreduce
 
-parts: Env.uo Format.uo Lambda.uo LamReduce.uo Parser.uo Reducers.uo 
+parts: Env.uo Format.uo Lambda.uo LambdaRed.uo Parser.uo Reducers.uo 
 
 lamreduce: parts 
-	mosmlc -o lamreduce.exe LamReduce.sml
+	mosmlc -o LambdaRed.exe LambdaRed.sml
 
 Parser.sml Parser.sig: Parser.grm
 	$(MOSMLYACC) Parser.grm
@@ -44,7 +44,6 @@ depend: Lexer.sml Parser.sml
 
 clean:
 	rm -f Parser.sig Parser.sml Lexer.sml
-	rm -f lamreduce
 	rm -f *.ui
 	rm -f *.uo
 	rm -f Makefile.bak
@@ -61,4 +60,4 @@ Reducers.ui: Env.ui Lambda.uo
 Format.uo: Format.ui Lambda.uo 
 Reducers.uo: Reducers.ui Format.ui Env.ui Lambda.uo 
 Main.uo: Parser.ui Format.ui Lexer.uo Env.ui Lambda.uo Reducers.ui 
-LamReduce.uo: Parser.ui Format.ui Lexer.uo Env.ui Lambda.uo Reducers.ui 
+LambdaRed.uo: Parser.ui Format.ui Lexer.uo Env.ui Lambda.uo Reducers.ui 

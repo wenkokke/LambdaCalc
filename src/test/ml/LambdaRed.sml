@@ -15,7 +15,7 @@ fun readlam s = Parser.Input Lexer.Token (Lexing.createLexerString s)
 val env0 = foldl Env.addenv Env.empty Lambda.binds0
 
 fun main () =
-    let val lamoption    = TextIO.inputLine TextIO.stdIn
+    let val lamoption    = hd(CommandLine.arguments())
         val maxstep      = 4000
         val (binds, lam) = readlam lamoption
         val env          = foldl Env.addenv env0 binds
