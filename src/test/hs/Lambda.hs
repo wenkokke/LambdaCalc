@@ -4,19 +4,25 @@ module Main where
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck
-
-import Control.Monad
-  ( liftM
-  , liftM2
-  )
-
-import Data.Char
-  ( toUpper
-  )
-
+import Control.Monad( liftM, liftM2 )
+import Data.Char( toUpper )
 import Data.Set (Set)
 import qualified Data.Set as Set
+import Test.QuickCheck
+import Text.Printf (printf)
+import System.Process (readProcess)
+
+--------------------------------------------------------------------------
+-- mechanics of verifying two lambda reducers
+
+lambdacalc :: Exp -> IO String
+lambdacalc e = readProcess "java" ["-jar",jar,"-n"] (show e)
+  where
+  jar = "C:\\Users\\Pepijn\\.m2\\repository\\lambdacalc\\lambdacalc\\1.0.1\\lambdacalc-1.0.1.jar"
+  
+main :: IO ()
+main = do r <- lambdacalc (Lam (MkVar "x") (App (Con $ MkCon "f") (Var $ MkVar "x")))
+          print r
 
 --------------------------------------------------------------------------
 -- types for lambda expressions

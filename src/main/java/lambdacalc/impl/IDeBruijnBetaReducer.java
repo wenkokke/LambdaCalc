@@ -36,8 +36,9 @@ public final class IDeBruijnBetaReducer implements Visitor<IDeBruijnBetaReducer.
 	@Override
 	public final DeBruijn betaReduce(DeBruijn exp) {
 		Step step = exp.accept(this);
-		while (step.isReduced())
-			 step = step.getExpr().accept(this);
+		while (step.isReduced()) {
+			step = step.getExpr().accept(this);
+		}
 		return step.getExpr();
 	}
 
@@ -106,7 +107,7 @@ public final class IDeBruijnBetaReducer implements Visitor<IDeBruijnBetaReducer.
 			}
 			else
 			if (i.getIndex().equals(depth)) {
-				return expr.accept(new IAdjuster(depth,0));
+				return expr.accept(new IAdjuster(depth,-1));
 			}
 			else {
 				// return the index unchanged;

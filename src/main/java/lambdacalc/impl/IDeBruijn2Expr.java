@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 
 import lambdacalc.DeBruijn;
 import lambdacalc.DeBruijn2Expr;
-import lambdacalc.DeBruijn2FreeNames;
+import lambdacalc.DeBruijn2Constants;
 import lambdacalc.Expr;
 import lambdacalc.ExprBuilder;
 import lambdacalc.FreshNameSupplier;
@@ -27,12 +27,12 @@ public final class IDeBruijn2Expr implements DeBruijn2Expr {
 
 	ExprBuilder			builder;
 	Map<Type, String>	names;
-	DeBruijn2FreeNames	freeNames;
+	DeBruijn2Constants	freeNames;
 
 	@Override
 	public final Expr fromDeBruijn(final DeBruijn expr) {
 		return expr.accept(new IConverter(
-			new IFreshNameSupplier(names,freeNames.freeNames(expr))));
+			new IFreshNameSupplier(names,freeNames.constants(expr))));
 	}
 	
 	@RequiredArgsConstructor

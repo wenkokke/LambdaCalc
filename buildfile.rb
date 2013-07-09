@@ -9,7 +9,7 @@ COMMONS_CLI = 'commons-cli:commons-cli:jar:1.2'
 
 # project definition
 define 'lambdacalc' do
-  project.version = '1.0.0'
+  project.version = '1.1.0'
 
   eclipse.natures :java
   
@@ -17,5 +17,9 @@ define 'lambdacalc' do
   compile.options.target = '1.7'
   compile.with LOMBOK,GUAVA,JPARSEC,COMMONS_CLI
   
-  package :jar
+  package(:jar).with \
+    :manifest => manifest.merge('Main-Class' => 'lambdacalc.STL')
+
+  
+  compile.dependencies.map {|d| d.to_s }.join(';')
 end

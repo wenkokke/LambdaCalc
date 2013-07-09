@@ -20,7 +20,7 @@ public final class IExpr2FreeNames implements Visitor<Set<String>>, Expr2FreeNam
 
 	@Override
 	public final Set<String> abstraction(Symbol s, Expr body) {
-		return difference(body.accept(this),of(s.getName()));
+		return difference(body.accept(this), of(s.getName()));
 	}
 
 	@Override

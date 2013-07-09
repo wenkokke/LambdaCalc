@@ -10,10 +10,13 @@ import static lambdacalc.Types.ET_T;
 import static lambdacalc.Types.T;
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 import lambdacalc.impl.IDeBruijn2Expr;
-import lambdacalc.impl.IDeBruijn2FreeNames;
+import lambdacalc.impl.IDeBruijn2Constants;
 import lambdacalc.impl.IDeBruijn2Type;
 import lambdacalc.impl.IDeBruijnBetaReducer;
 import lambdacalc.impl.IDeBruijnBuilder;
@@ -34,6 +37,7 @@ import lambdacalc.impl.IIndexPrinter;
 import lambdacalc.impl.ISymbolPrinter;
 import lambdacalc.impl.ITypeBuilder;
 import lambdacalc.impl.ITypePrinter;
+import lombok.Cleanup;
 import lombok.Delegate;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -51,23 +55,23 @@ import com.google.common.collect.Maps;
 public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 		IndexPrinter, ExprPrinter, DeBruijnPrinter, DeBruijnRenamer,
 		Expr2Type, Expr2DeBruijn, Expr2FreeNames, DeBruijn2Expr,
-		DeBruijn2FreeNames, DeBruijnTypeChecker, DeBruijn2Type,
+		DeBruijn2Constants, DeBruijnTypeChecker, DeBruijn2Type,
 		DeBruijnEtaReducer, DeBruijnBetaReducer, ExprBetaReducer,
 		ExprEtaReducer {
 	
 	// runs various lambda reductions from the command-line;
-	public static final void main(String[] args) throws ParseException {
+	public static final void main(String[] args) throws IOException, ParseException {
 		val parser = new PosixParser();
 		val options = new Options();
 		options.addOption("u", "untyped", false, "Configures the lambda parser to consume untyped terms.");
 		options.addOption("s", "simply-typed", false, "Configures the lambda parser to consume simply typed terms.");
 		options.addOption("n", "normalize", false, "Applies normal-order reduction to the given lambda expression.");
-		options.addOption("e", "expresison", true, "The lambda expression to work on.");
 		val cmds = parser.parse(options, args);
 		val stl = new STL();
 		
-		// run all commands
-		val input = cmds.getOptionValue("e");
+		@Cleanup
+		val in = new BufferedReader(new InputStreamReader(System.in));
+		val input = in.readLine();
 		
 		// parse the expression
 		Expr expr;
@@ -121,8 +125,8 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
   	@Delegate Expr2FreeNames		expr2FreeNames		= new IExpr2FreeNames();
 	@Delegate Expr2DeBruijn			expr2DeBruijn		= new IExpr2DeBruijn(deBruijnBuilder);
 	@Delegate Expr2Type				expr2Type			= new IExpr2Type(typeBuilder);
-	@Delegate DeBruijn2FreeNames	deBruijn2FreeNames	= new IDeBruijn2FreeNames();
-	@Delegate DeBruijn2Expr			deBruijn2Expr		= new IDeBruijn2Expr(exprBuilder,namingConventions,deBruijn2FreeNames);
+	@Delegate DeBruijn2Constants	deBruijn2Constants	= new IDeBruijn2Constants();
+	@Delegate DeBruijn2Expr			deBruijn2Expr		= new IDeBruijn2Expr(exprBuilder,namingConventions,deBruijn2Constants);
 	@Delegate DeBruijn2Type			deBruijn2Type		= new IDeBruijn2Type(typeBuilder);
 	@Delegate DeBruijnTypeChecker	deBruijnTypeChecker	= new IDeBruijnTypeChecker(typeBuilder,typePrinter,deBruijnPrinter);
 	
