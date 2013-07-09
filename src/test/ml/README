@@ -1,0 +1,20 @@
+Adapted for command-line usage of the normal-order reduction.
+
+Pepijn Kokke (pepijn.kokke@gmail.com) 2013
+
+This directory contains the implementation of a lambda calculus reducer
+
+The lambda calculus reducer is a CGI script that permits evaluation of
+untyped lambda expressions in a WWW browser.  The CGI scripts are
+written in Moscow ML; see http://www.itu.dk/people/sestoft/mosml.html
+
+The implementation has been updated to use the Msp structure from
+Moscow ML 2.00 and later.
+
+The lambda calculus reducer is described in:
+
+P. Sestoft. Demonstrating Lambda Calculus Reduction.  In T. Mogensen,
+D. Schmidt, I. H. Sudburough (editors): The Essence of Computation:
+Complexity, Analysis, Transformation Springer-Verlag 2002.
+
+Peter Sestoft (sestoft@itu.dk) 1997-06-23, 2002-07-31, 2012-12-03

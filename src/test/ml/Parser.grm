@@ -1,0 +1,55 @@
+%{
+
+open Lambda
+
+%}
+
+%token <string> VAR GLB
+%token LPAR RPAR LAM DOT EOF EQUALS SEMI LET IN
+
+%start Input 
+%start Bindings
+
+%type <(string * Lambda.lam) list * Lambda.lam> Input 
+%type <(string * Lambda.lam) list> Bindings
+%type <string * Lambda.lam> Binding
+%type <Lambda.lam> AtomicLam Lambda AppLams
+%type <string list> VarSeq1
+
+%% 
+
+Input :
+    Lambda EOF	                { ([], $1) }
+  | LET Bindings IN Lambda EOF	{ ($2, $4) }
+;
+
+AtomicLam :
+    VAR				{ Var $1 }
+  | GLB				{ Glb $1 }
+  | LPAR Lambda RPAR            { $2 }
+
+AppLams :
+    AtomicLam			{ $1 }
+  | AppLams AtomicLam           { App($1, $2) }
+;
+
+Lambda :
+    AppLams                     { $1 } 
+  | LAM VarSeq1 DOT Lambda	{ List.foldr Lam $4 $2 } 
+;
+
+VarSeq1 :
+    VAR				{ [$1] }
+  | VAR VarSeq1			{ $1 :: $2 }
+;
+
+Bindings :
+    /* empty */                 { [] }
+  | Binding		        { [$1] }
+  | Binding SEMI Bindings	{ $1 :: $3 }
+;
+
+Binding :
+   VAR EQUALS Lambda		{ ($1, $3) }
+%%
+
