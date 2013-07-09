@@ -9,20 +9,24 @@ import Data.Char( toUpper )
 import Data.Set (Set)
 import qualified Data.Set as Set
 import Test.QuickCheck
-import Text.Printf (printf)
+import Test.QuickCheck.Gen (unGen)
+import System.Environment (getArgs)
+import System.Random (mkStdGen)
 import System.Process (readProcess)
 
 --------------------------------------------------------------------------
 -- mechanics of verifying two lambda reducers
-
-lambdacalc :: Exp -> IO String
-lambdacalc e = readProcess "java" ["-jar",jar,"-n"] (show e)
-  where
-  jar = "C:\\Users\\Pepijn\\.m2\\repository\\lambdacalc\\lambdacalc\\1.0.1\\lambdacalc-1.0.1.jar"
   
 main :: IO ()
-main = do r <- lambdacalc (Lam (MkVar "x") (App (Con $ MkCon "f") (Var $ MkVar "x")))
-          print r
+main =
+  do args <- getArgs;
+     if length args < 2
+        then print "usage: LambdaGen [seed] [size]"
+        else let [seed,n] = args
+              in sequence_ . map print $ lambdaGen (read seed) (read n)
+
+lambdaGen :: Int -> Int -> [Exp]
+lambdaGen seed n = unGen arbitrary (mkStdGen seed) n
 
 --------------------------------------------------------------------------
 -- types for lambda expressions

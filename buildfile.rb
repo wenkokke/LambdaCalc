@@ -19,7 +19,12 @@ define 'lambdacalc' do
   
   package(:jar).with \
     :manifest => manifest.merge('Main-Class' => 'lambdacalc.STL')
-
+    
+  task :lambdagen do
+    system "ghc --make #{_(:src,:test:,:hs,'LambdaGen.hs')}"
+  end
   
-  compile.dependencies.map {|d| d.to_s }.join(';')
+  task :lamreduce do
+    
+  end
 end
