@@ -46,3 +46,32 @@ file LambdaGen => LambdaGenHs do
   rm LambdaGenHs.ext('.hi')
   rm LambdaGenHs.ext('.o')
 end
+
+# Generate randomized unit tests
+task :mktestcase, [:classname,:size,:seed] => [LambdaRed, LambdaGen] do |t, args|
+  args.with_defaults(:seed => rand(999999999), :size => 100)
+  
+  # check if classname is provided
+  if args.classname.nil?
+    exit "usage: mktestcase[classname,size=100,seed=rand]"
+  else
+  
+    # check if the file exists
+    classfile = project('lambdacalc')._(:src,:test,:java,:lambdacalc,"#{args.classname}.java")
+    if File.exist? classfile
+      puts "file exists: #{classfile}"
+    else
+      File.open(classfile, "w") do |newout|  
+        # redirect stdout to the script file
+        oldout = $stdout
+        $stdout = newout
+        begin
+          mktestcase project('lambdacalc'), args.classname, args.size, args.seed
+        ensure
+          # restore the stdout
+          $stdout = oldout
+        end
+      end
+    end
+  end
+end

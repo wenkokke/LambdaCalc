@@ -12,7 +12,7 @@ fun handler (Lambda.Internal s)          = print ("Internal error: " ^ s)
 
 fun readlam s = Parser.Input Lexer.Token (Lexing.createLexerString s)
 
-val env0 = foldl Env.addenv Env.empty Lambda.binds0
+val env0 = foldl Env.addenv Env.empty []
 
 fun main () =
     let val lamoption    = hd(CommandLine.arguments())
