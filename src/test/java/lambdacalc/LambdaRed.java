@@ -27,8 +27,14 @@ public final class LambdaRed {
 		@Cleanup
 		val is = new BufferedReader(new InputStreamReader(ps.getInputStream()));
 		
-		System.err.println(is.readLine());
-		return null;
+		String line;
+		val output = new StringBuilder();
+		while ((line = is.readLine()) != null) {
+			if (!line.startsWith("Performed")) {
+				output.append(line);
+			}
+		}
+		return output.toString();
 	}
 	
 }
