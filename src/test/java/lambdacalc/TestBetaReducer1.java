@@ -1,10 +1,8 @@
 package lambdacalc;
 
-import static org.junit.Assert.assertEquals;
-import lombok.val;
 import org.junit.Test;
 
-public final class TestBetaReducer1 extends TestLambdaCalc {
+public final class TestBetaReducer1 extends TestBetaReducer {
 
   @Test
   public final void test0() {
@@ -2180,14 +2178,6 @@ public final class TestBetaReducer1 extends TestLambdaCalc {
       "\\h.(\\r.e ((\\e.(\\h.\\x.W N n U (\\j.\\m.l)) ((\\d.(\\g.\\i.\\o.a (\\i.(\\l.I) a (\\a.D M))) (\\b.\\n.\\w.(\\d.\\t.B) (\\r.\\u.u) (\\a.\\p.\\y.(\\h.R) (y l)))) m)) (p (\\s.\\q.\\j.\\v.n)))) (d (\\t.(\\k.(\\o.(\\u.\\t.w) r) (r ((\\v.(\\k.\\o.Y T) s m) (b (\\r.S) u)))) Q))",
       "\\h.e (\\x.W N n U (\\j.\\m.l))"
     );
-  }
-
-  private final void reducesTo(final String str1, final String str2) {
-    val exp1 = stl.toDeBruijn(stl.parseUntypedExpr(str1));
-    val exp2 = stl.toDeBruijn(stl.parseUntypedExpr(str2));
-    val red1 = stl.format(stl.fromDeBruijn(stl.betaReduce(exp1)));
-    val red2 = stl.format(stl.fromDeBruijn(exp2));
-    assertEquals(red2,red1);
   }
 
 }

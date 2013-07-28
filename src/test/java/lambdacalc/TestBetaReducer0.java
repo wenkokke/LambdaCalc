@@ -1,10 +1,8 @@
 package lambdacalc;
 
-import static org.junit.Assert.assertEquals;
-import lombok.val;
 import org.junit.Test;
 
-public final class TestBetaReducer0 extends TestLambdaCalc {
+public final class TestBetaReducer0 extends TestBetaReducer {
 
   @Test
   public final void test0() {
@@ -4404,14 +4402,6 @@ public final class TestBetaReducer0 extends TestLambdaCalc {
       "(\\s.\\g.(\\x.(\\j.\\p.(\\x.(\\f.s) (Y a) (f (f J))) (\\z.(\\x.\\n.i) s)) ((\\v.\\u.x) ((\\c.R) (y c) (\\r.(\\n.b) (\\p.R)))) g) I) ((\\z.x (\\r.\\t.\\b.r)) (\\d.g) (\\s.b (\\r.t) (\\z.j) (\\m.(\\j.c D) T ((\\a.(\\v.\\y.r c) ((\\f.h) (\\l.V))) (\\m.G Y))))) ((\\u.(\\m.(\\b.E) (\\g.v) (\\z.O) w) V) (\\p.i) ((\\o.G) (\\m.\\w.\\e.\\z.L s ((\\i.Y) d) (\\d.k k (\\d.\\x.(\\e.X j) (\\t.O l)))) C)) I",
       "x (\\r.\\t.\\b.r) (\\s.b (\\r.t) (\\z.j) (\\m.c D (\\y.r c))) (f (f J)) I"
     );
-  }
-
-  private final void reducesTo(final String str1, final String str2) {
-    val exp1 = stl.toDeBruijn(stl.parseUntypedExpr(str1));
-    val exp2 = stl.toDeBruijn(stl.parseUntypedExpr(str2));
-    val red1 = stl.format(stl.fromDeBruijn(stl.betaReduce(exp1)));
-    val red2 = stl.format(stl.fromDeBruijn(exp2));
-    assertEquals(red2,red1);
   }
 
 }
