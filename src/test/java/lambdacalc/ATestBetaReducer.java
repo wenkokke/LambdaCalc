@@ -3,7 +3,7 @@ package lambdacalc;
 import static org.junit.Assert.assertEquals;
 import lombok.val;
 
-public abstract class TestBetaReducer extends TestLambdaCalc {
+public abstract class ATestBetaReducer extends ATestLambdaCalc {
 
 	protected final void reducesTo(final String str1, final String str2) {
 	    val exp1 = stl.toDeBruijn(stl.parseUntypedExpr(str1));

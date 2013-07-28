@@ -5,7 +5,7 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-public final class TestParser extends TestLambdaCalc {
+public final class TestParser extends ATestLambdaCalc {
 	
 	@Test
 	public final void primitiveTypes() {

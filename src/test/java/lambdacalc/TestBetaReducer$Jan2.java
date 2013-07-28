@@ -5,7 +5,7 @@ import lombok.val;
 
 import org.junit.Test;
 
-public final class TestBetaReducer$Jan2 extends TestLambdaCalc {
+public final class TestBetaReducer$Jan2 extends ATestLambdaCalc {
 	
 	@Test
 	public final void fromStep1() {

@@ -2,7 +2,7 @@ package lambdacalc;
 
 import org.junit.Test;
 
-public final class TestBetaReducer2 extends TestBetaReducer {
+public final class TestBetaReducer2 extends ATestBetaReducer {
 
   @Test
   public final void test0() {
