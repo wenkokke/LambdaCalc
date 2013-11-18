@@ -12,11 +12,11 @@ define 'lambdacalc' do
   project.version = '1.1.0'
 
   eclipse.natures :java
-  
-  compile.options.source = '1.7'
-  compile.options.target = '1.7'
+
+  compile.options.source = '1.6'
+  compile.options.target = '1.6'
   compile.with LOMBOK,GUAVA,JPARSEC,COMMONS_CLI
-  
+
   package(:jar).with \
     :manifest => manifest.merge('Main-Class' => 'lambdacalc.STL')
 end
@@ -50,18 +50,18 @@ end
 # Generate randomized unit tests
 task :mktestcase, [:classname,:size,:seed] => [LambdaRed, LambdaGen] do |t, args|
   args.with_defaults(:seed => rand(999999999), :size => 100)
-  
+
   # check if classname is provided
   if args.classname.nil?
     exit "usage: mktestcase[classname,size=100,seed=rand]"
   else
-  
+
     # check if the file exists
     classfile = project('lambdacalc')._(:src,:test,:java,:lambdacalc,"#{args.classname}.java")
     if File.exist? classfile
       puts "file exists: #{classfile}"
     else
-      File.open(classfile, "w") do |newout|  
+      File.open(classfile, "w") do |newout|
         # redirect stdout to the script file
         oldout = $stdout
         $stdout = newout
