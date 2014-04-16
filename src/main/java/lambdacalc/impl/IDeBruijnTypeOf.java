@@ -2,7 +2,7 @@ package lambdacalc.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 import lambdacalc.DeBruijn;
-import lambdacalc.DeBruijn2Type;
+import lambdacalc.DeBruijnTypeOf;
 import lambdacalc.Index;
 import lambdacalc.Symbol;
 import lambdacalc.Type;
@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal=true,level=PRIVATE)
-public final class IDeBruijn2Type implements Visitor<Type>, DeBruijn2Type {
+public final class IDeBruijnTypeOf implements Visitor<Type>, DeBruijnTypeOf {
 
 	TypeBuilder builder;
 	

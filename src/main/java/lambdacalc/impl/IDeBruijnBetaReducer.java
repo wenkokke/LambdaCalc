@@ -1,10 +1,9 @@
 package lambdacalc.impl;
 
 import static lombok.AccessLevel.PRIVATE;
-
 import lambdacalc.DeBruijn;
 import lambdacalc.DeBruijn.Visitor;
-import lambdacalc.DeBruijn2Type;
+import lambdacalc.DeBruijnTypeOf;
 import lambdacalc.DeBruijnBetaReducer;
 import lambdacalc.DeBruijnBuilder;
 import lambdacalc.DeBruijnMatcher;
@@ -16,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.Value;
+import lombok.experimental.Wither;
 import lombok.extern.java.Log;
 
 @Log
@@ -25,10 +25,11 @@ public final class IDeBruijnBetaReducer implements Visitor<IDeBruijnBetaReducer.
 
 	STL					stl;
 	DeBruijnBuilder		builder;
-	DeBruijn2Type		typer;
+	DeBruijnTypeOf		typer;
 	
 	@Value
 	public final class Step {
+		@Wither
 		DeBruijn	expr;
 		boolean		reduced;
 	}
@@ -89,6 +90,7 @@ public final class IDeBruijnBetaReducer implements Visitor<IDeBruijnBetaReducer.
 	private final class ISubsituter implements DeBruijnBuilder {
 
 		DeBruijn	expr;
+		@Wither
 		Integer		depth;
 		
 		@Override
@@ -124,6 +126,7 @@ public final class IDeBruijnBetaReducer implements Visitor<IDeBruijnBetaReducer.
 	private final class IAdjuster implements DeBruijnBuilder {
 		
 		Integer adjustment;
+		@Wither
 		Integer depth;
 
 		@Override

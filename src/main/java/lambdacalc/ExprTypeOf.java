@@ -1,12 +1,12 @@
 package lambdacalc;
 
-public interface DeBruijn2Type {
+public interface ExprTypeOf {
 	
 	/**
 	 * Gets the top-level type of the expression.
 	 * @param expr the expression to type
 	 * @return the type
 	 */
-	Type typeOf(DeBruijn expr);
+	Type typeOf(Expr expr);
 	
 }

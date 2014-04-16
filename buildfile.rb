@@ -2,7 +2,7 @@
 repositories.remote << 'http://repo1.maven.org/maven2'
 
 # maven dependencies
-LOMBOK      = 'org.projectlombok:lombok:jar:0.11.6'
+LOMBOK      = 'org.projectlombok:lombok:jar:1.12.6'
 JPARSEC     = 'jparsec:jparsec:jar:2.0.1'
 GUAVA       = 'com.google.guava:guava:jar:13.0.1'
 COMMONS_CLI = 'commons-cli:commons-cli:jar:1.2'

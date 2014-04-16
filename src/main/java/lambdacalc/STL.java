@@ -17,7 +17,7 @@ import java.util.Map;
 
 import lambdacalc.impl.IDeBruijn2Expr;
 import lambdacalc.impl.IDeBruijn2Constants;
-import lambdacalc.impl.IDeBruijn2Type;
+import lambdacalc.impl.IDeBruijnTypeOf;
 import lambdacalc.impl.IDeBruijnBetaReducer;
 import lambdacalc.impl.IDeBruijnBuilder;
 import lambdacalc.impl.IDeBruijnEtaReducer;
@@ -26,7 +26,7 @@ import lambdacalc.impl.IDeBruijnRenamer;
 import lambdacalc.impl.IDeBruijnTypeChecker;
 import lambdacalc.impl.IExpr2DeBruijn;
 import lambdacalc.impl.IExpr2FreeNames;
-import lambdacalc.impl.IExpr2Type;
+import lambdacalc.impl.IExprTypeOf;
 import lambdacalc.impl.IExprBetaReducer;
 import lambdacalc.impl.IExprBuilder;
 import lambdacalc.impl.IExprEtaReducer;
@@ -54,8 +54,8 @@ import com.google.common.collect.Maps;
 @FieldDefaults(makeFinal=true,level=PRIVATE)
 public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 		IndexPrinter, ExprPrinter, DeBruijnPrinter, DeBruijnRenamer,
-		Expr2Type, Expr2DeBruijn, Expr2FreeNames, DeBruijn2Expr,
-		DeBruijn2Constants, DeBruijnTypeChecker, DeBruijn2Type,
+		ExprTypeOf, Expr2DeBruijn, Expr2FreeNames, DeBruijn2Expr,
+		DeBruijn2Constants, DeBruijnTypeChecker, DeBruijnTypeOf,
 		DeBruijnEtaReducer, DeBruijnBetaReducer, ExprBetaReducer,
 		ExprEtaReducer {
 	
@@ -124,10 +124,10 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 	// conversion functions
   	@Delegate Expr2FreeNames		expr2FreeNames		= new IExpr2FreeNames();
 	@Delegate Expr2DeBruijn			expr2DeBruijn		= new IExpr2DeBruijn(deBruijnBuilder);
-	@Delegate Expr2Type				expr2Type			= new IExpr2Type(typeBuilder);
+	@Delegate ExprTypeOf				expr2Type			= new IExprTypeOf(typeBuilder);
 	@Delegate DeBruijn2Constants	deBruijn2Constants	= new IDeBruijn2Constants();
 	@Delegate DeBruijn2Expr			deBruijn2Expr		= new IDeBruijn2Expr(exprBuilder,namingConventions,deBruijn2Constants);
-	@Delegate DeBruijn2Type			deBruijn2Type		= new IDeBruijn2Type(typeBuilder);
+	@Delegate DeBruijnTypeOf			deBruijn2Type		= new IDeBruijnTypeOf(typeBuilder);
 	@Delegate DeBruijnTypeChecker	deBruijnTypeChecker	= new IDeBruijnTypeChecker(typeBuilder,typePrinter,deBruijnPrinter);
 	
 	// reduction functions
