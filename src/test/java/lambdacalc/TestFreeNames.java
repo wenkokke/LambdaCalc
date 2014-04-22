@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
 
-public final class TestExpr2FreeNames extends ATestLambdaCalc {
+public final class TestFreeNames extends ATestLambdaCalc {
 	
 	@Test
 	public final void somenames1() {

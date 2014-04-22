@@ -2,7 +2,7 @@ package lambdacalc;
 
 import java.util.Set;
 
-public interface Expr2FreeNames {
+public interface ExprToFreeNames {
 	
 	Set<String> freeNames(final Expr expr);
 	

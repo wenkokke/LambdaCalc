@@ -3,9 +3,9 @@ package lambdacalc.impl;
 import static lombok.AccessLevel.PRIVATE;
 import lambdacalc.DeBruijn;
 import lambdacalc.DeBruijnBuilder;
-import lambdacalc.DeBruijnClosedDomain;
+import lambdacalc.DeBruijnToClosedDomain;
 import lambdacalc.DeBruijnIsClosed;
-import lambdacalc.DeBruijnTypeOf;
+import lambdacalc.DeBruijnToType;
 import lambdacalc.Index;
 import lambdacalc.Symbol;
 import lambdacalc.Type;
@@ -19,22 +19,21 @@ import com.google.common.collect.Iterables;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal=true,level=PRIVATE)
-public final class IDeBruijnClosedDomain implements DeBruijnClosedDomain {
+public final class IDeBruijnToClosedDomain implements DeBruijnToClosedDomain {
 
-	Type type;
-	DeBruijnTypeOf typeOf;
+	DeBruijnToType typeOf;
 	DeBruijnBuilder builder;
 	DeBruijnIsClosed isClosed;
 	
 	@Override
-	public final Iterable<DeBruijn> domainOf(DeBruijn e) {
+	public final Iterable<DeBruijn> domainOf(final Type t, final DeBruijn e) {
 		return
 			ImmutableList.copyOf(
 				Iterables.filter(e.accept(new IDeBruijnSubterms()).build(),
 					new Predicate<DeBruijn>() {
 						@Override
 						public final boolean apply(DeBruijn e) {
-							return typeOf.typeOf(e).equals(type) && isClosed.isClosed(e);
+							return typeOf.typeOf(e).equals(t) && isClosed.isClosed(e);
 						}
 					}));
 	}

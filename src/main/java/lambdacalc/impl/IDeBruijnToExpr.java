@@ -8,8 +8,8 @@ import java.util.Map;
 import com.google.common.collect.Lists;
 
 import lambdacalc.DeBruijn;
-import lambdacalc.DeBruijn2Expr;
-import lambdacalc.DeBruijn2Constants;
+import lambdacalc.DeBruijnToExpr;
+import lambdacalc.DeBruijnToConstants;
 import lambdacalc.Expr;
 import lambdacalc.ExprBuilder;
 import lambdacalc.FreshNameSupplier;
@@ -23,11 +23,11 @@ import lombok.experimental.FieldDefaults;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal=true,level=PRIVATE)
-public final class IDeBruijn2Expr implements DeBruijn2Expr {
+public final class IDeBruijnToExpr implements DeBruijnToExpr {
 
 	ExprBuilder			builder;
 	Map<Type, String>	names;
-	DeBruijn2Constants	freeNames;
+	DeBruijnToConstants	freeNames;
 
 	@Override
 	public final Expr fromDeBruijn(final DeBruijn expr) {

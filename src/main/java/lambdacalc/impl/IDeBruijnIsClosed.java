@@ -36,7 +36,7 @@ public final class IDeBruijnIsClosed implements DeBruijnIsClosed {
 
 		@Override
 		public final Boolean variable(Index i) {
-			return i.getIndex() >= depth;
+			return depth > i.getIndex();
 		}
 
 		@Override

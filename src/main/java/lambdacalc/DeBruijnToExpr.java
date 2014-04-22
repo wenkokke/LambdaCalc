@@ -1,6 +1,6 @@
 package lambdacalc;
 
-public interface DeBruijn2Expr {
+public interface DeBruijnToExpr {
 	
 	Expr fromDeBruijn(DeBruijn expr);
 	

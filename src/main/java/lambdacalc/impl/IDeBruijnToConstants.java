@@ -6,13 +6,13 @@ import static com.google.common.collect.Sets.union;
 import java.util.Set;
 
 import lambdacalc.DeBruijn;
-import lambdacalc.DeBruijn2Constants;
+import lambdacalc.DeBruijnToConstants;
 import lambdacalc.Index;
 import lambdacalc.Symbol;
 import lambdacalc.Type;
 import lambdacalc.DeBruijn.Visitor;
 
-public final class IDeBruijn2Constants implements Visitor<Set<String>>, DeBruijn2Constants {
+public final class IDeBruijnToConstants implements Visitor<Set<String>>, DeBruijnToConstants {
 
 	@Override
 	public final Set<String> constants(DeBruijn expr) {

@@ -2,7 +2,7 @@ package lambdacalc;
 
 import java.util.Set;
 
-public interface DeBruijn2Constants {
+public interface DeBruijnToConstants {
 	
 	Set<String> constants(final DeBruijn expr);
 	

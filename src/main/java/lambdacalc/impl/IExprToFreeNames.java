@@ -7,11 +7,11 @@ import static com.google.common.collect.Sets.difference;
 import java.util.Set;
 
 import lambdacalc.Expr;
-import lambdacalc.Expr2FreeNames;
+import lambdacalc.ExprToFreeNames;
 import lambdacalc.Symbol;
 import lambdacalc.Expr.Visitor;
 
-public final class IExpr2FreeNames implements Visitor<Set<String>>, Expr2FreeNames {
+public final class IExprToFreeNames implements Visitor<Set<String>>, ExprToFreeNames {
 
 	@Override
 	public final Set<String> freeNames(Expr expr) {

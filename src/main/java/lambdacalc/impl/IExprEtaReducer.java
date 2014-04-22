@@ -1,10 +1,10 @@
 package lambdacalc.impl;
 
 import static lombok.AccessLevel.PRIVATE;
-import lambdacalc.DeBruijn2Expr;
+import lambdacalc.DeBruijnToExpr;
 import lambdacalc.DeBruijnEtaReducer;
 import lambdacalc.Expr;
-import lambdacalc.Expr2DeBruijn;
+import lambdacalc.ExprToDeBruijn;
 import lambdacalc.ExprEtaReducer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,9 +13,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(makeFinal=true,level=PRIVATE)
 public final class IExprEtaReducer implements ExprEtaReducer {
 
-	Expr2DeBruijn		expr2DeBruijn;
+	ExprToDeBruijn		expr2DeBruijn;
 	DeBruijnEtaReducer	deBruijnEtaReducer;
-	DeBruijn2Expr		deBruijn2Expr;
+	DeBruijnToExpr		deBruijn2Expr;
 	
 	
 	@Override

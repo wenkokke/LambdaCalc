@@ -2,7 +2,7 @@ package lambdacalc.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 import lambdacalc.Expr;
-import lambdacalc.ExprTypeOf;
+import lambdacalc.ExprToType;
 import lambdacalc.Symbol;
 import lambdacalc.Type;
 import lambdacalc.TypeBuilder;
@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal=true,level=PRIVATE)
-public final class IExprTypeOf implements Visitor<Type>, ExprTypeOf {
+public final class IExprToType implements Visitor<Type>, ExprToType {
 
 	TypeBuilder builder;
 	

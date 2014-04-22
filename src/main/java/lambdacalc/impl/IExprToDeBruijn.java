@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import lambdacalc.DeBruijn;
 import lambdacalc.DeBruijnBuilder;
 import lambdacalc.Expr;
-import lambdacalc.Expr2DeBruijn;
+import lambdacalc.ExprToDeBruijn;
 import lambdacalc.Symbol;
 import lambdacalc.Expr.Visitor;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal=true,level=PRIVATE)
-public final class IExpr2DeBruijn implements Visitor<DeBruijn>, Expr2DeBruijn {
+public final class IExprToDeBruijn implements Visitor<DeBruijn>, ExprToDeBruijn {
 	
 	@Override
 	public final DeBruijn toDeBruijn(Expr expr) {

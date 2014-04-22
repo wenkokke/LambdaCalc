@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+@EqualsAndHashCode(callSuper=false)
 public abstract class IDeBruijn implements DeBruijn {
 
 	@ToString

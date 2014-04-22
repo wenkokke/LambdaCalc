@@ -3,7 +3,7 @@ package lambdacalc.impl;
 import static lombok.AccessLevel.PRIVATE;
 import lambdacalc.DeBruijn;
 import lambdacalc.DeBruijn.Visitor;
-import lambdacalc.DeBruijnTypeOf;
+import lambdacalc.DeBruijnToType;
 import lambdacalc.DeBruijnBetaReducer;
 import lambdacalc.DeBruijnBuilder;
 import lambdacalc.DeBruijnMatcher;
@@ -25,7 +25,7 @@ public final class IDeBruijnBetaReducer implements Visitor<IDeBruijnBetaReducer.
 
 	STL					stl;
 	DeBruijnBuilder		builder;
-	DeBruijnTypeOf		typer;
+	DeBruijnToType		typer;
 	
 	@Value
 	public final class Step {
