@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -36,6 +37,23 @@ public final class IDeBruijnToClosedDomain implements DeBruijnToClosedDomain {
 							return typeOf.typeOf(e).equals(t) && isClosed.isClosed(e);
 						}
 					}));
+	}
+
+	@Override
+	public Iterable<DeBruijn> domainOf(Type t, DeBruijn... exps) {
+		return domainOf(t, ImmutableList.copyOf(exps));
+	}
+
+	@Override
+	public final Iterable<DeBruijn> domainOf(final Type t, final Iterable<DeBruijn> exps) {
+		return
+			Iterables.concat(Iterables.transform(exps,
+				new Function<DeBruijn,Iterable<DeBruijn>>() {
+					@Override
+					public final Iterable<DeBruijn> apply(final DeBruijn exp) {
+						return IDeBruijnToClosedDomain.this.domainOf(t, exp);
+					}
+			}));
 	}
 
 	@RequiredArgsConstructor

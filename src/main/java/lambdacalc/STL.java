@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 import lambdacalc.impl.IDeBruijnIsClosed;
+import lambdacalc.impl.IDeBruijnRichBuilder;
 import lambdacalc.impl.IDeBruijnToClosedDomain;
 import lambdacalc.impl.IDeBruijnToExpr;
 import lambdacalc.impl.IDeBruijnToConstants;
@@ -97,7 +98,7 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 	// builder functions
 	@Getter   TypeBuilder				typeBuilder			= new ITypeBuilder();
 	@Getter   ExprBuilder				exprBuilder			= new IExprBuilder();
-	@Getter   DeBruijnBuilder			deBruijnBuilder		= new IDeBruijnBuilder();
+	          DeBruijnBuilder           deprDeBruijnBuilder = new IDeBruijnBuilder();
 	
 	// parsing functions
 	@Delegate ExprParser				exprParser			= new IExprParser(typeBuilder,exprBuilder);
@@ -128,16 +129,19 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 	@Delegate DeBruijnToExpr			deBruijn2Expr			= new IDeBruijnToExpr(exprBuilder,namingConventions,deBruijn2Constants);
 	@Delegate DeBruijnToType			deBruijn2Type			= new IDeBruijnToType(typeBuilder);
 	@Delegate DeBruijnIsClosed      	deBruijnIsClosed    	= new IDeBruijnIsClosed();
-	@Delegate DeBruijnToClosedDomain	deBruijnToClosedDomain  = new IDeBruijnToClosedDomain(deBruijn2Type, deBruijnBuilder, deBruijnIsClosed);
+	@Delegate DeBruijnToClosedDomain	deBruijnToClosedDomain  = new IDeBruijnToClosedDomain(deBruijn2Type, deprDeBruijnBuilder, deBruijnIsClosed);
 	@Delegate DeBruijnTypeChecker		deBruijnTypeChecker		= new IDeBruijnTypeChecker(typeBuilder,typePrinter,deBruijnPrinter);
 	@Delegate ExprToFreeNames			expr2FreeNames			= new IExprToFreeNames();
-	@Delegate ExprToDeBruijn			expr2DeBruijn			= new IExprToDeBruijn(deBruijnBuilder);
+	@Delegate ExprToDeBruijn			expr2DeBruijn			= new IExprToDeBruijn(deprDeBruijnBuilder);
 	@Delegate ExprToType				expr2Type				= new IExprToType(typeBuilder);
+
+	// rich builder functions
+	@Getter   DeBruijnRichBuilder		deBruijnBuilder			= new IDeBruijnRichBuilder(deprDeBruijnBuilder,exprParser,expr2DeBruijn);
 	
 	// reduction functions
-	@Delegate DeBruijnRenamer			deBruijnRenamer			= new IDeBruijnRenamer(deBruijnBuilder);
-	@Delegate DeBruijnBetaReducer		deBruijnBetaReducer 	= new IDeBruijnBetaReducer(this,deBruijnBuilder,deBruijn2Type);
-	@Delegate DeBruijnEtaReducer		deBruijnEtaReducer		= new IDeBruijnEtaReducer(deBruijnBuilder);
+	@Delegate DeBruijnRenamer			deBruijnRenamer			= new IDeBruijnRenamer(deprDeBruijnBuilder);
+	@Delegate DeBruijnBetaReducer		deBruijnBetaReducer 	= new IDeBruijnBetaReducer(this,deprDeBruijnBuilder,deBruijn2Type);
+	@Delegate DeBruijnEtaReducer		deBruijnEtaReducer		= new IDeBruijnEtaReducer(deprDeBruijnBuilder);
 	@Delegate ExprBetaReducer			exprBetaReducer			= new IExprBetaReducer(expr2DeBruijn,deBruijnBetaReducer,deBruijn2Expr);
 	@Delegate ExprEtaReducer			exprEtaReducer			= new IExprEtaReducer(expr2DeBruijn,deBruijnEtaReducer,deBruijn2Expr);
 	
