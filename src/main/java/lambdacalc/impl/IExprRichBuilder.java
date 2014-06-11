@@ -31,5 +31,26 @@ public class IExprRichBuilder implements ExprRichBuilder {
 	public final Expr parse(String rawExpr) {
 		return parser.parse(rawExpr);
 	}          
+	
+	@Override
+	public final Expr application(final Expr... exprs) {
+		if (exprs.length == 0) {
+			throw new RuntimeException("Cannot construct empty application.");
+		}
+		else {
+		
+			Expr expr = exprs[0];
+			for (int i = 1; i <= exprs.length; i++) {
+				if (i == exprs.length) {
+					return expr;
+				}
+				else {
+					expr = builder.application(expr, exprs[i]);
+				}
+			}
+			return expr;
+			
+		}
+	}
 
 }

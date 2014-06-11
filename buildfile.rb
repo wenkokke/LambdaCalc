@@ -9,7 +9,7 @@ COMMONS_CLI = 'commons-cli:commons-cli:jar:1.2'
 
 # LambdaCalc project
 define 'lambdacalc' do
-  project.version = '1.2.0'
+  project.version = '1.3.0'
 
   eclipse.natures :java
 
