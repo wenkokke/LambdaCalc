@@ -27,6 +27,7 @@ import lambdacalc.impl.IDeBruijnEtaReducer;
 import lambdacalc.impl.IDeBruijnPrinter;
 import lambdacalc.impl.IDeBruijnRenamer;
 import lambdacalc.impl.IDeBruijnTypeChecker;
+import lambdacalc.impl.IExprRichBuilder;
 import lambdacalc.impl.IExprToDeBruijn;
 import lambdacalc.impl.IExprToFreeNames;
 import lambdacalc.impl.IExprToType;
@@ -97,12 +98,12 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 
 	// builder functions
 	@Getter   TypeBuilder				typeBuilder			= new ITypeBuilder();
-	@Getter   ExprBuilder				exprBuilder			= new IExprBuilder();
+	          ExprBuilder				deprExprBuilder		= new IExprBuilder();
 	          DeBruijnBuilder           deprDeBruijnBuilder = new IDeBruijnBuilder();
 	
 	// parsing functions
-	@Delegate ExprParser				exprParser			= new IExprParser(typeBuilder,exprBuilder);
-	@Delegate ExprParserUntyped			exprParserUntyped	= new IExprParserUntyped(exprBuilder);
+	@Delegate ExprParser				exprParser			= new IExprParser(typeBuilder,deprExprBuilder);
+	@Delegate ExprParserUntyped			exprParserUntyped	= new IExprParserUntyped(deprExprBuilder);
 	
 	// naming conventions
 	Map<Type,String> namingConventions = Maps.newHashMap();
@@ -126,7 +127,7 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 	
 	// conversion functions
   	@Delegate DeBruijnToConstants		deBruijn2Constants		= new IDeBruijnToConstants();
-	@Delegate DeBruijnToExpr			deBruijn2Expr			= new IDeBruijnToExpr(exprBuilder,namingConventions,deBruijn2Constants);
+	@Delegate DeBruijnToExpr			deBruijn2Expr			= new IDeBruijnToExpr(deprExprBuilder,namingConventions,deBruijn2Constants);
 	@Delegate DeBruijnToType			deBruijn2Type			= new IDeBruijnToType(typeBuilder);
 	@Delegate DeBruijnIsClosed      	deBruijnIsClosed    	= new IDeBruijnIsClosed();
 	@Delegate DeBruijnToClosedDomain	deBruijnToClosedDomain  = new IDeBruijnToClosedDomain(deBruijn2Type, deprDeBruijnBuilder, deBruijnIsClosed);
@@ -136,6 +137,7 @@ public final class STL implements ExprParser, TypePrinter, SymbolPrinter,
 	@Delegate ExprToType				expr2Type				= new IExprToType(typeBuilder);
 
 	// rich builder functions
+	@Getter   ExprRichBuilder           exprBuilder             = new IExprRichBuilder(deprExprBuilder,exprParser);
 	@Getter   DeBruijnRichBuilder		deBruijnBuilder			= new IDeBruijnRichBuilder(deprDeBruijnBuilder,exprParser,expr2DeBruijn);
 	
 	// reduction functions
