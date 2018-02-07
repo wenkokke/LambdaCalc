@@ -1,6 +1,6 @@
 Adapted for command-line usage of the normal-order reduction.
 
-Pepijn Kokke (pepijn.kokke@gmail.com) 2013
+Wen Kokke (wen.kokke@gmail.com) 2013
 
 This directory contains the implementation of a lambda calculus reducer
 
